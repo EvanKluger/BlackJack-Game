@@ -97,14 +97,21 @@ def play():
         print("The dealer is showing a " + dealer[0] + '\n')
 
         choice = ''
+        ace_count = 0
         while choice != 'stand' and player_score < 22:
             choice = input("Would you like to hit or stand   ")
             if choice.lower() == 'hit':
                 new_card = random.choice(list(cards.keys()))
                 player.append(new_card)
                 player_score += cards[new_card]
-                print("You now have " + str(player) + ' for a score of '+ str(player_score) + '\n')
-
+            if player_score > 21:
+                ace_count_temp = 0
+                for card in player:
+                    if "Ace" in card:
+                        ace_count_temp += 1
+                player_score -= ((ace_count_temp - ace_count)* 10)
+                ace_count = ace_count_temp
+            print("Your cards are " + str(player) + ' for a score of '+ str(player_score) +'\n')
         print('The dealer flips his second card and is showing a ' + str(dealer) + ' for a score of '+ str(dealer_score) + '\n')
         while dealer_score < 17:
             new_card = random.choice(list(cards.keys()))
@@ -135,8 +142,5 @@ def play():
             print('\n \n')
             continue
         
-        
-
-
 play()
 
