@@ -3,5 +3,10 @@ Hey everyone.
 
 This is a Black Jack python game that I have worked on for a Portfolio Project for a Codecademy course.
 
+The main.py file is the main game frame that allows a user to play against the dealer.
+
+The algo file runs a game where an algorithim runs how the user decides whether to double, split, hit or stand.
+
+The data file runs the algorithim against the dealer and returns the data from mutliple hands played.
 
 Feel free to use it and play.
