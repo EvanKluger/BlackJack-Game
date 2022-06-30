@@ -91,8 +91,8 @@ def play():
         dealer_first_card = random.choice(list(cards.keys()))
         dealer_second_card = random.choice(list(cards.keys()))
 
-        dealer.append('5 Hearts')
-        dealer.append('Ace Hearts')
+        dealer.append(dealer_first_card)
+        dealer.append(dealer_second_card)
         
 
         player_score = 0
