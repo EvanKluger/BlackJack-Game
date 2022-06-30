@@ -144,7 +144,6 @@ def play():
                         choice = 'hit'
                     else:
                         choice = 'stand'
-                        continue
                     if split_choice_1.lower() == 'hit':
                         new_card = random.choice(list(cards.keys()))
                         first_hand.append(new_card)
@@ -165,17 +164,20 @@ def play():
                 
             else:
                 while choice != 'stand' and player_score < 22:
-                    if choice.lower() == 'hit':
+                    if player_score < 17 and (cards[dealer_first_card] > 7 or cards[dealer_first_card] < 3):
+                        choice = 'hit'
                         new_card = random.choice(list(cards.keys()))
                         player.append(new_card)
                         player_score += cards[new_card]
-                    if player_score > 21:
-                        ace_count_temp_player = 0
-                        for card in player:
-                            if "Ace" in card:
-                                ace_count_temp_player += 1
-                        player_score -= ((ace_count_temp_player - ace_count_player)* 10)
-                        ace_count_player = ace_count_temp_player
+                        if player_score > 21:
+                            ace_count_temp_player = 0
+                            for card in player:
+                                if "Ace" in card:
+                                    ace_count_temp_player += 1
+                            player_score -= ((ace_count_temp_player - ace_count_player)* 10)
+                            ace_count_player = ace_count_temp_player
+                    else:
+                        choice = 'stand'
                     print("Your cards are " + str(player) + ' for a score of '+ str(player_score) +'\n')
         else:
             if (player_score > 7 and player_score < 12) and (cards[dealer_first_card] < 7):
