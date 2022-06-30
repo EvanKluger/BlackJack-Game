@@ -125,7 +125,7 @@ def play():
                 player.append(new_card)
                 player_score += cards[new_card]
                 print("Your cards are " + str(player) + ' for a score of '+ str(player_score) +'\n')
-            
+
             if choice == 'split':
                 split_choice_1 = ''
                 split_choice_2 = ''
@@ -247,36 +247,72 @@ def play():
                 print('\n \n')
                 continue
         else:
-            if player_score > 21:
-                print("Sorry the dealer has won \n")
-                total_winnings -= bet
-                print("Your total winnings are " + str(total_winnings) +'\n')
-                play = input("Would you like to play another hand - type y    ").lower()
-                print('\n \n')
-                continue
+            if choice == 'double':
+                if player_score > 21:
+                    print("Sorry the dealer has won \n")
+                    total_winnings -= bet
+                    total_winnings -= bet
+                    print("Your total winnings are " + str(total_winnings) +'\n')
+                    play = input("Would you like to play another hand - type y    ").lower()
+                    print('\n \n')
+                    continue
 
-            if dealer_score > 21:
-                print('You have won \n')
-                total_winnings += bet
-                print("Your total winnings are " + str(total_winnings) +'\n')
-                play = input("Would you like to play another hand - type y    ").lower()
-                print('\n \n')
-                continue
+                if dealer_score > 21:
+                    print('You have won \n')
+                    total_winnings += bet
+                    total_winnings += bet
+                    print("Your total winnings are " + str(total_winnings) +'\n')
+                    play = input("Would you like to play another hand - type y    ").lower()
+                    print('\n \n')
+                    continue
 
-            if dealer_score < player_score:
-                print('You have won \n')
-                total_winnings += bet
-                print("Your total winnings are " + str(total_winnings) +'\n')
-                play = input("Would you like to play another hand - type y    ").lower()
-                print('\n \n')
-                continue
+                if dealer_score < player_score:
+                    print('You have won \n')
+                    total_winnings += bet
+                    total_winnings += bet
+                    print("Your total winnings are " + str(total_winnings) +'\n')
+                    play = input("Would you like to play another hand - type y    ").lower()
+                    print('\n \n')
+                    continue
+                else:
+                    print("Sorry the dealer has won \n")
+                    total_winnings -= bet
+                    total_winnings -= bet
+                    print("Your total winnings are " + str(total_winnings) +'\n')
+                    play = input("Would you like to play another hand - type y   ").lower()
+                    print('\n \n')
+                    continue
             else:
-                print("Sorry the dealer has won \n")
-                total_winnings -= bet
-                print("Your total winnings are " + str(total_winnings) +'\n')
-                play = input("Would you like to play another hand - type y   ").lower()
-                print('\n \n')
-                continue
+                if player_score > 21:
+                    print("Sorry the dealer has won \n")
+                    total_winnings -= bet
+                    print("Your total winnings are " + str(total_winnings) +'\n')
+                    play = input("Would you like to play another hand - type y    ").lower()
+                    print('\n \n')
+                    continue
+
+                if dealer_score > 21:
+                    print('You have won \n')
+                    total_winnings += bet
+                    print("Your total winnings are " + str(total_winnings) +'\n')
+                    play = input("Would you like to play another hand - type y    ").lower()
+                    print('\n \n')
+                    continue
+
+                if dealer_score < player_score:
+                    print('You have won \n')
+                    total_winnings += bet
+                    print("Your total winnings are " + str(total_winnings) +'\n')
+                    play = input("Would you like to play another hand - type y    ").lower()
+                    print('\n \n')
+                    continue
+                else:
+                    print("Sorry the dealer has won \n")
+                    total_winnings -= bet
+                    print("Your total winnings are " + str(total_winnings) +'\n')
+                    play = input("Would you like to play another hand - type y   ").lower()
+                    print('\n \n')
+                    continue
         
 play()
 
