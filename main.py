@@ -91,8 +91,8 @@ def play():
         dealer_first_card = random.choice(list(cards.keys()))
         dealer_second_card = random.choice(list(cards.keys()))
 
-        dealer.append(dealer_first_card)
-        dealer.append(dealer_second_card)
+        dealer.append('5 Hearts')
+        dealer.append('Ace Hearts')
         
 
         player_score = 0
@@ -107,14 +107,9 @@ def play():
         print("Your cards are " + player[0] + " and a " + player[1] + ' for a score of '+ str(player_score) +'\n')
         print("The dealer is showing a " + dealer[0] + '\n')
         
-        #Extreme Case: Dealer has Two Aces
-        ace_count_dealer = 0
-        for card in dealer:
-                    if "Ace" in card:
-                        ace_count_dealer += 1
-
         choice = ''
         ace_count_player = 0
+        ace_count_dealer = 0
         first_hand_score = 0
         second_hand_score = 0
         if(cards[player_first_card] == cards[player_second_card]):
@@ -167,7 +162,9 @@ def play():
                         player_score -= ((ace_count_temp_player - ace_count_player)* 10)
                         ace_count_player = ace_count_temp_player
                     print("Your cards are " + str(player) + ' for a score of '+ str(player_score) +'\n')
-                print('The dealer flips his second card and is showing a ' + str(dealer) + ' for a score of '+ str(dealer_score) + '\n')
+
+            print('The dealer flips his second card and is showing a ' + str(dealer) + ' for a score of '+ str(dealer_score) + '\n')
+            
         else:
             choice = input("Would you like to double down? Enter double. If not type no   ").lower()
 
@@ -192,19 +189,21 @@ def play():
                     player_score -= ((ace_count_temp_player - ace_count_player)* 10)
                     ace_count_player = ace_count_temp_player
                 print("Your cards are " + str(player) + ' for a score of '+ str(player_score) +'\n')
-            print('The dealer flips his second card and is showing a ' + str(dealer) + ' for a score of '+ str(dealer_score) + '\n')
+        
+        print('The dealer flips his second card and is showing a ' + str(dealer) + ' for a score of '+ str(dealer_score) + '\n')
         
         while dealer_score < 17:
             new_card = random.choice(list(cards.keys()))
             dealer.append(new_card)
             dealer_score += cards[new_card]
+            ace_count_temp_dealer = 0
+
             if dealer_score > 21:
-                ace_count_temp_dealer = 0
                 for card in dealer:
                     if "Ace" in card:
                         ace_count_temp_dealer += 1
                 dealer_score -= ((ace_count_temp_dealer - ace_count_dealer)* 10)
-                ace_count_dealer  = ace_count_temp_dealer 
+                ace_count_dealer = ace_count_temp_dealer
             print("The dealer hits and has " + str(dealer) + ' for a score of '+ str(dealer_score) + '\n')
         
         if first_hand_score != 0:
