@@ -120,15 +120,16 @@ def play():
         first_hand_score = 0
         second_hand_score = 0
         if(cards[player_first_card] == cards[player_second_card]):
-            choice = input("Would you like to double down or split? Enter double or split. If not type no   ").lower()
-
-            if choice == 'double':
+            if (player_score > 7 and player_score < 12) and (cards[dealer_first_card] < 7):
+                choice = 'double'
+                print('You have Double Downed  \n')
                 new_card = random.choice(list(cards.keys()))
                 player.append(new_card)
                 player_score += cards[new_card]
                 print("Your cards are " + str(player) + ' for a score of '+ str(player_score) +'\n')
 
-            if choice == 'split':
+            if player_score > 15 and cards[dealer_first_card] < 8 and choice != 'double':
+                print('You have split \n')
                 split_choice_1 = ''
                 split_choice_2 = ''
                 first_hand = []
@@ -139,7 +140,11 @@ def play():
                 second_hand.append(random.choice(list(cards.keys())))
 
                 while split_choice_1 != 'stand' and first_hand_score < 22:
-                    split_choice_1 = input(" Your first hand is a " + str(first_hand) + "Would you like to hit or stand   ")
+                    if first_hand_score < 17 and (cards[dealer_first_card] > 7 or cards[dealer_first_card] < 3):
+                        choice = 'hit'
+                    else:
+                        choice = 'stand'
+                        continue
                     if split_choice_1.lower() == 'hit':
                         new_card = random.choice(list(cards.keys()))
                         first_hand.append(new_card)
@@ -147,7 +152,11 @@ def play():
                     print("Your cards are " + str(first_hand) + ' for a score of '+ str(first_hand_score) +'\n')
                 
                 while split_choice_2 != 'stand' and second_hand_score < 22:
-                    split_choice_2 = input(" Your second hand is a " + str(second_hand) + "Would you like to hit or stand   ")
+                    if second_hand_score < 17 and (cards[dealer_first_card] > 7 or cards[dealer_first_card] < 3):
+                        choice = 'hit'
+                    else:
+                        choice = 'stand'
+                        continue
                     if split_choice_2.lower() == 'hit':
                         new_card = random.choice(list(cards.keys()))
                         second_hand.append(new_card)
@@ -156,7 +165,6 @@ def play():
                 
             else:
                 while choice != 'stand' and player_score < 22:
-                    choice = input("Would you like to hit or stand   ")
                     if choice.lower() == 'hit':
                         new_card = random.choice(list(cards.keys()))
                         player.append(new_card)
@@ -168,11 +176,10 @@ def play():
                                 ace_count_temp_player += 1
                         player_score -= ((ace_count_temp_player - ace_count_player)* 10)
                         ace_count_player = ace_count_temp_player
-                    print("Your cards are " + str(player) + ' for a score of '+ str(player_score) +'\n')            
+                    print("Your cards are " + str(player) + ' for a score of '+ str(player_score) +'\n')
         else:
-            choice = input("Would you like to double down? Enter double. If not type no   ").lower()
-
-            if choice == 'double':
+            if (player_score > 7 and player_score < 12) and (cards[dealer_first_card] < 7):
+                print('You have doubled \n')
                 new_card = random.choice(list(cards.keys()))
                 player.append(new_card)
                 player_score += cards[new_card]
@@ -180,7 +187,11 @@ def play():
                 
             else:
                 while choice != 'stand' and player_score < 22:
-                    choice = input("Would you like to hit or stand   ")
+                    if player_score < 17 and (cards[dealer_first_card] > 7 or cards[dealer_first_card] < 3):
+                        choice = 'hit'
+                    else:
+                        choice = 'stand'
+                        continue
                     if choice.lower() == 'hit':
                         new_card = random.choice(list(cards.keys()))
                         player.append(new_card)
@@ -219,7 +230,7 @@ def play():
                 play = input("Would you like to play another hand - type y    ").lower()
                 print('\n \n')
                 continue
-            if dealer > 21 and first_hand_score < 21 and second_hand_score < 21:
+            if dealer_score > 21 and first_hand_score < 21 and second_hand_score < 21:
                 print("You have won both hands \n")
                 total_winnings += bet
                 total_winnings += bet
