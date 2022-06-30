@@ -67,6 +67,7 @@ cards = {
 'Ace Diamonds': 11,
 }
 
+dealer_total = 0
 def play():
     #Setting up the Game and the anount the Player Bets
     count = 0
