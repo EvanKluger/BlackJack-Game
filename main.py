@@ -67,8 +67,6 @@ cards = {
 'Ace Diamonds': 11,
 }
 
-
-
 def play():
     #Setting up the Game and the anount the Player Bets
     total_winnings = 0
@@ -107,6 +105,15 @@ def play():
         print("Your cards are " + player[0] + " and a " + player[1] + ' for a score of '+ str(player_score) +'\n')
         print("The dealer is showing a " + dealer[0] + '\n')
         
+        if player_score == 21:
+            print('Congrats you got BlackJack you have won 1.5 times your bet')
+            total_winnings += (bet*1.5)
+            print("Your total winnings are " + str(total_winnings) +'\n')
+            play = input("Would you like to play another hand - type y    ").lower()
+            print('\n \n')
+            continue
+        
+
         choice = ''
         ace_count_player = 0
         ace_count_dealer = 0
