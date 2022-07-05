@@ -1,5 +1,8 @@
 #This is the code for a BlackJack Game to be played on the terminal
 import random 
+import numpy as np
+import numpy.linalg as LA
+import matplotlib.pyplot as plt
 
 cards = {
 '2 Hearts': 2,
@@ -79,7 +82,7 @@ def play():
     
     
     #While loop that runs the game over and over again until player choses to stop
-    while count < 10:
+    while count < 100000:
         print('The count is ' + str(count) + '\n')
         bet = 10
         player_score = 0
@@ -105,9 +108,17 @@ def play():
         for card in dealer:
             dealer_score += cards[card]
         
+        if player_score == 0:
+                print('There is a bug for this hand')
+                break
+
         if dealer_score > 21:
             dealer_score -= 20
         
+        if player_score == 0:
+            print('There is a bug for this hand')
+            continue
+
         print("Your cards are " + player[0] + " and a " + player[1] + ' for a score of '+ str(player_score) +'\n')
         print("The dealer is showing a " + dealer[0] + '\n')
         
@@ -122,7 +133,6 @@ def play():
             print('\n \n')
             continue
         
-
         choice = ''
         ace_count_player = 0
         ace_count_dealer = 0
@@ -149,12 +159,20 @@ def play():
                 first_hand.append(random.choice(list(cards.keys())))
                 second_hand.append(player_second_card)
                 second_hand.append(random.choice(list(cards.keys())))
+                
+                for card in first_hand:
+                    first_hand_score += cards[card]   
+                
+                for card in second_hand:
+                    second_hand_score += cards[card]      
+        
 
                 while split_choice_1 != 'stand' and first_hand_score < 22:
                     if first_hand_score < 17 and (cards[dealer_first_card] > 7 or cards[dealer_first_card] < 3):
-                        choice = 'hit'
+                        split_choice_1 = 'hit'
                     else:
-                        choice = 'stand'
+                        split_choice_1 = 'stand'
+                    
                     if split_choice_1.lower() == 'hit':
                         new_card = random.choice(list(cards.keys()))
                         first_hand.append(new_card)
@@ -163,9 +181,9 @@ def play():
                 
                 while split_choice_2 != 'stand' and second_hand_score < 22:
                     if second_hand_score < 17 and (cards[dealer_first_card] > 7 or cards[dealer_first_card] < 3):
-                        choice = 'hit'
+                        split_choice_2 = 'hit'
                     else:
-                        choice = 'stand'
+                        split_choice_2 = 'stand'
                     if split_choice_2.lower() == 'hit':
                         new_card = random.choice(list(cards.keys()))
                         second_hand.append(new_card)
@@ -244,7 +262,7 @@ def play():
                         count += 1
                         print('\n \n')
                         continue
-                    if dealer > 21 and first_hand_score < 21 and second_hand_score < 21:
+                    if dealer_score > 21 and first_hand_score < 21 and second_hand_score < 21:
                         print("You have won both hands \n")
                         player_wins += 2
                         total_winnings += bet
@@ -375,5 +393,12 @@ def play():
                     count += 1
                     print('\n \n')
                     continue
-
+    
+    names = ['dealer','player']    
+    wins = [dealer_wins, player_wins]       
+    plt.bar(names, wins)
+    plt.xlabel('Player and Dealer')
+    plt.ylabel('Wins')
+    plt.title('Data on Wins: Dealer vs Player')
+    plt.show()
 play()

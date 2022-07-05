@@ -102,7 +102,7 @@ def play():
         if dealer_score > 21:
             dealer_score -= 20
         
-        print("Your cards are " + player[0] + " and a " + player[1] + ' for a score of '+ str(player_score) +'\n')
+        print("\n Your cards are " + player[0] + " and a " + player[1] + ' for a score of '+ str(player_score) +'\n')
         print("The dealer is showing a " + dealer[0] + '\n')
         
         if player_score == 21:
@@ -137,7 +137,12 @@ def play():
                 first_hand.append(random.choice(list(cards.keys())))
                 second_hand.append(player_second_card)
                 second_hand.append(random.choice(list(cards.keys())))
-
+                
+                for card in first_hand:
+                    first_hand_score += cards[card]   
+                
+                for card in second_hand:
+                    second_hand_score += cards[card]
                 while split_choice_1 != 'stand' and first_hand_score < 22:
                     split_choice_1 = input(" Your first hand is a " + str(first_hand) + "Would you like to hit or stand   ")
                     if split_choice_1.lower() == 'hit':
@@ -219,7 +224,7 @@ def play():
                 play = input("Would you like to play another hand - type y    ").lower()
                 print('\n \n')
                 continue
-            if dealer > 21 and first_hand_score < 21 and second_hand_score < 21:
+            if dealer_score > 21 and first_hand_score < 21 and second_hand_score < 21:
                 print("You have won both hands \n")
                 total_winnings += bet
                 total_winnings += bet
@@ -318,4 +323,3 @@ def play():
                     continue
         
 play()
-
