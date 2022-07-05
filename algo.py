@@ -95,12 +95,21 @@ def play():
 
         player_score = 0
         dealer_score = 0
+        ace_count_player = 0
+        ace_count_dealer = 0
+        
         for card in player:
             player_score += cards[card]
         for card in dealer:
             dealer_score += cards[card]
+        
         if dealer_score > 21:
             dealer_score -= 20
+            ace_count_dealer += 2
+        
+        if player_score > 21:
+            player_score -= 20
+            ace_count_player += 2
         
         print("Your cards are " + player[0] + " and a " + player[1] + ' for a score of '+ str(player_score) +'\n')
         print("The dealer is showing a " + dealer[0] + '\n')
@@ -115,10 +124,12 @@ def play():
         
 
         choice = ''
-        ace_count_player = 0
-        ace_count_dealer = 0
+    
         first_hand_score = 0
         second_hand_score = 0
+        ace_count_split_1 = 0
+        ace_count_split_2 = 0
+
         if(cards[player_first_card] == cards[player_second_card]):
             if (player_score > 7 and player_score < 12) and (cards[dealer_first_card] < 7):
                 choice = 'double'
@@ -139,6 +150,14 @@ def play():
                 second_hand.append(player_second_card)
                 second_hand.append(random.choice(list(cards.keys())))
 
+                if first_hand_score == 22:
+                    first_hand_score -= 20
+                    ace_count_split_1 += 2
+                
+                if second_hand_score == 22:
+                    second_hand_score -= 20
+                    ace_count_split_2 += 2
+                
                 while split_choice_1 != 'stand' and first_hand_score < 22:
                     if first_hand_score < 17 and (cards[dealer_first_card] > 7 or cards[dealer_first_card] < 3):
                         choice = 'hit'
@@ -148,6 +167,13 @@ def play():
                         new_card = random.choice(list(cards.keys()))
                         first_hand.append(new_card)
                         first_hand_score += cards[new_card]
+                    if first_hand_score > 21:
+                        ace_count_temp_split_1 = 0
+                        for card in first_hand:
+                            if "Ace" in card:
+                                ace_count_temp_split_1 += 1
+                        first_hand_score -= ((ace_count_temp_split_1 - ace_count_split_1)* 10)
+                        ace_count_split_1 = ace_count_temp_split_1
                     print("Your cards are " + str(first_hand) + ' for a score of '+ str(first_hand_score) +'\n')
                 
                 while split_choice_2 != 'stand' and second_hand_score < 22:
@@ -160,6 +186,13 @@ def play():
                         new_card = random.choice(list(cards.keys()))
                         second_hand.append(new_card)
                         second_hand_score += cards[new_card]
+                    if second_hand_score > 21:
+                        ace_count_temp_split_2 = 0
+                        for card in first_hand:
+                            if "Ace" in card:
+                                ace_count_temp_split_2 += 1
+                        second_hand_score -= ((ace_count_temp_split_2 - ace_count_split_2)* 10)
+                        ace_count_split_2 = ace_count_temp_split_2
                     print("Your cards are " + str(second_hand) + ' for a score of '+ str(second_hand_score) +'\n')
                 
             else:
