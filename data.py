@@ -73,6 +73,7 @@ cards = {
 dealer_total = 0
 def play():
     #Setting up the Game and the anount the Player Bets
+    x = int(input('How many hands do you want to be played \n'))
     count = 0
     total_winnings = 0
     player_wins = 0
@@ -82,7 +83,7 @@ def play():
     
     
     #While loop that runs the game over and over again until player choses to stop
-    while count < 1000:
+    while count < x:
         print('The count is ' + str(count) + '\n')
         bet = 10
         player_score = 0
