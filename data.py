@@ -82,7 +82,7 @@ def play():
     
     
     #While loop that runs the game over and over again until player choses to stop
-    while count < 100000:
+    while count < 1000:
         print('The count is ' + str(count) + '\n')
         bet = 10
         player_score = 0
