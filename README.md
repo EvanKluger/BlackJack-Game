@@ -10,3 +10,5 @@ The algo file runs a game where an algorithim that plays "based on the book" run
 The data file runs the algorithim against the dealer and returns the data from mutliple hands played decided by the player.
 
 Feel free to use it and play.
+
+If you have any questions or suggestions feel free to reach out! 
