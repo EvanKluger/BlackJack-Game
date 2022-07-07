@@ -125,19 +125,44 @@ def play():
             total_winnings += (30*bet_side)
         
         if (cards[player_first_card] == cards[player_second_card]) and ('Hearts' in player_first_card or 'Diamonds' in player_first_card) and ('Hearts' in player_second_card or 'Diamonds' in player_second_card) and perfect_pair == 'no':
-            print('Congrats your cards are coloured pairs. You win 10x your side bet \n')
-            mixed_pair = 'yes'
-            total_winnings += (10*bet_side)
-        
+            if cards[player_first_card] != 10:
+                print('Congrats your cards are coloured pairs. You win 10x your side bet \n')
+                mixed_pair = 'yes'
+                total_winnings += (10*bet_side)
+            else: 
+                if ('Jack' in player_first_card and 'Jack' in player_second_card) or ('Queen' in player_first_card and 'Queen' in player_second_card) or ('King' in player_first_card and 'King' in player_second_card):
+                    print('Congrats your cards are coloured pairs. You win 10x your side bet \n')
+                    mixed_pair = 'yes'
+                    total_winnings += (10*bet_side)
+                else:
+                    print('Sorry you lose your side bet \n')
+                    total_winnings -= bet_side
+
         if (cards[player_first_card] == cards[player_second_card]) and ('Spades' in player_first_card or 'Clubs' in player_first_card) and ('Spades' in player_second_card or 'Clubs' in player_second_card) and perfect_pair == 'no':
-            print('Congrats your cards are coloured pairs. You win 10x your side bet \n')
-            mixed_pair = 'yes'
-            total_winnings += (10*bet_side)
+            if cards[player_first_card] != 10:
+                print('Congrats your cards are coloured pairs. You win 10x your side bet \n')
+                mixed_pair = 'yes'
+                total_winnings += (10*bet_side)
+            else: 
+                if ('Jack' in player_first_card and 'Jack' in player_second_card) or ('Queen' in player_first_card and 'Queen' in player_second_card) or ('King' in player_first_card and 'King' in player_second_card):
+                    print('Congrats your cards are coloured pairs. You win 10x your side bet \n')
+                    mixed_pair = 'yes'
+                    total_winnings += (10*bet_side)
+                else:
+                    print('Sorry you lose your side bet \n')
+                    total_winnings -= bet_side
 
         if (cards[player_first_card] == cards[player_second_card]) and perfect_pair == 'no' and mixed_pair == 'no' and bet_side != 0:
-            print('Congrats your cards are regular pairs. You win 5x your side bet \n')
-            total_winnings += (5*bet_side)
-        
+            if cards[player_first_card] != 10:
+                print('Congrats your cards are regular pairs. You win 5x your side bet \n')
+                total_winnings += (5*bet_side)
+            else:
+                if ('Jack' in player_first_card and 'Jack' in player_second_card) or ('Queen' in player_first_card and 'Queen' in player_second_card) or ('King' in player_first_card and 'King' in player_second_card):
+                    print('Congrats your cards are regular pairs. You win 5x your side bet \n')
+                    total_winnings += (5*bet_side)
+                else:
+                    print('Sorry you lose your side bet \n')
+                    total_winnings -= bet_side
         if (cards[player_first_card] != cards[player_second_card]) and (player_first_card != player_second_card) and bet_side != 0:
             print('Sorry you lose your side bet \n')
             total_winnings -= bet_side
@@ -168,6 +193,12 @@ def play():
                 new_card = random.choice(list(cards.keys()))
                 player.append(new_card)
                 player_score += cards[new_card]
+                if player_score > 21:
+                        ace_count_temp_player = 0
+                        for card in player:
+                            if "Ace" in card:
+                                ace_count_temp_player += 1
+                        player_score -= ((ace_count_temp_player - ace_count_player)* 10)
                 print("Your cards are " + str(player) + ' for a score of '+ str(player_score) +'\n')
 
             #Player splits when has the option to split
@@ -260,7 +291,14 @@ def play():
                 new_card = random.choice(list(cards.keys()))
                 player.append(new_card)
                 player_score += cards[new_card]
+                if player_score > 21:
+                        ace_count_temp_player = 0
+                        for card in player:
+                            if "Ace" in card:
+                                ace_count_temp_player += 1
+                        player_score -= ((ace_count_temp_player - ace_count_player)* 10)
                 print("Your cards are " + str(player) + ' for a score of '+ str(player_score) +'\n')
+                
             #Player choses to not double down 
             else:
                 #while loop for how a player plays his/her hand

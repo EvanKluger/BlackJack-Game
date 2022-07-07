@@ -157,6 +157,12 @@ def play():
                 new_card = random.choice(list(cards.keys()))
                 player.append(new_card)
                 player_score += cards[new_card]
+                if player_score > 21:
+                        ace_count_temp_player = 0
+                        for card in player:
+                            if "Ace" in card:
+                                ace_count_temp_player += 1
+                        player_score -= ((ace_count_temp_player - ace_count_player)* 10)
                 print("Your cards are " + str(player) + ' for a score of '+ str(player_score) +'\n')
                 continue
 
@@ -243,6 +249,12 @@ def play():
                 new_card = random.choice(list(cards.keys()))
                 player.append(new_card)
                 player_score += cards[new_card]
+                if player_score > 21:
+                        ace_count_temp_player = 0
+                        for card in player:
+                            if "Ace" in card:
+                                ace_count_temp_player += 1
+                        player_score -= ((ace_count_temp_player - ace_count_player)* 10)
                 print("Your cards are " + str(player) + ' for a score of '+ str(player_score) +'\n')
                 
             else:
