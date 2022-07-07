@@ -101,7 +101,8 @@ def play():
         dealer_score = 0
         ace_count_player = 0
         ace_count_dealer = 0
-
+        perfect_pair = 'no'
+        mixed_pair = 'no'
         for card in player:
             player_score += cards[card]
         for card in dealer:
@@ -114,17 +115,28 @@ def play():
             player_score -= 20
             ace_count_player += 2
         
-        print("\n Your cards are " + player[0] + " and a " + player[1] + ' for a score of '+ str(player_score) +'\n')
+        print("Your cards are " + player[0] + " and a " + player[1] + ' for a score of '+ str(player_score) +'\n')
         print("The dealer is showing a " + dealer[0] + '\n')
         
         #If statements to track whether player has won the side bet or not off the first two cards
         if player_first_card == player_second_card and bet_side != 0:
-            print('Congrats your cards are suited pairs. You win 20x your side bet \n')
-            total_winnings += (20*bet_side)
+            print('Congrats your cards are suited pairs. You win 30x your side bet \n')
+            perfect_pair = 'yes'
+            total_winnings += (30*bet_side)
         
-        if (cards[player_first_card] == cards[player_second_card]) and (player_first_card != player_second_card) and bet_side != 0:
-            print('Congrats your cards are regular pairs. You win 10x your side bet \n')
+        if (cards[player_first_card] == cards[player_second_card]) and ('Hearts' in player_first_card or 'Diamonds' in player_first_card) and ('Hearts' in player_second_card or 'Diamonds' in player_second_card) and perfect_pair == 'no':
+            print('Congrats your cards are coloured pairs. You win 10x your side bet \n')
+            mixed_pair = 'yes'
             total_winnings += (10*bet_side)
+        
+        if (cards[player_first_card] == cards[player_second_card]) and ('Spades' in player_first_card or 'Clubs' in player_first_card) and ('Spades' in player_second_card or 'Clubs' in player_second_card) and perfect_pair == 'no':
+            print('Congrats your cards are coloured pairs. You win 10x your side bet \n')
+            mixed_pair = 'yes'
+            total_winnings += (10*bet_side)
+
+        if (cards[player_first_card] == cards[player_second_card]) and perfect_pair == 'no' and mixed_pair == 'no' and bet_side != 0:
+            print('Congrats your cards are regular pairs. You win 5x your side bet \n')
+            total_winnings += (5*bet_side)
         
         if (cards[player_first_card] != cards[player_second_card]) and (player_first_card != player_second_card) and bet_side != 0:
             print('Sorry you lose your side bet \n')
